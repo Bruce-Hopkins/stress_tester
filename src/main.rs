@@ -43,7 +43,7 @@ async fn benchmark(url:String, tasks:i32) {
 
             loop {
                 let mut vec:Vec<hyper::client::ResponseFuture>  = Vec::new();
-                for _i in 0..20 {
+                for _i in 0..40 {
                     let uri = url_str.parse::<hyper::Uri>().unwrap();
                     let req:hyper::client::ResponseFuture = client.get(uri);
                     vec.push(req);
@@ -75,7 +75,7 @@ async fn benchmark(url:String, tasks:i32) {
     for i in join_all(c_tasks_vec).await {
         let i = i.unwrap(); 
         benchmark_results.num_of_requests = benchmark_results.num_of_requests + i.num_of_requests;
-        benchmark_results.time = benchmark_results.num_of_requests + i.time;
+        benchmark_results.time = benchmark_results.time + i.time;
     }
 
     println!("Requests: {}",  benchmark_results.num_of_requests);
@@ -86,5 +86,5 @@ async fn benchmark(url:String, tasks:i32) {
 }
 #[tokio::main]
 async fn main() {
-    benchmark(String::from("http://localhost:5000/api/posts/618045a63a5cc9120c2a855b"), 1).await;
+    benchmark(String::from("http://localhost:5000/api/posts/618045a63a5cc9120c2a855b"), 2).await;
 }
