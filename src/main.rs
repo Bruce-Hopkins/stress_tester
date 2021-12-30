@@ -1,17 +1,15 @@
 // Cargo
 use std::env;
 
-
 // Local Modules
 use::stress_tester::benchmarks::benchmark;
 
 #[tokio::main]
 async fn main() {
-        // Parse input
+    // Parse input
     let input_vec:Vec<String> = env::args().collect();
 
-
-    // Get manga id
+    // Get args
     let mut args = Vec::new();
 
     for i in 1..input_vec.len() {
@@ -73,12 +71,7 @@ async fn main() {
                     benchmark(url, tasks, connections, time_limit).await;
                 }
             }
-
-        
-
         },
         other => {println!("Command is not understood: {}", &other)} 
     }
-
-    
 }
